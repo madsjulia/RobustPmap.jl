@@ -30,7 +30,6 @@ PROCESS DISCLOSED, OR REPRESENTS THAT ITS USE WOULD NOT INFRINGE PRIVATELY OWNED
 LA-CC-15-080; Copyright Number Assigned: C16008
 """
 
-"Robust calls of pmap checking for the type of returned values"
 module RobustPmap
 
 "Check for type exceptions"
