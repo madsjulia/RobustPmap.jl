@@ -3,9 +3,9 @@ RobustPmap (Robust calls of pmap checking for the type of returned values)
 
 [![RobustPmap](http://pkg.julialang.org/badges/RobustPmap_0.4.svg)](http://pkg.julialang.org/?pkg=RobustPmap&ver=0.4)
 
-[![Build Status](https://travis-ci.org/JuliaLang/RobustPmap.jl.svg?branch=master)](https://travis-ci.org/JuliaLang/RobustPmap.jl)
+[![Build Status](https://travis-ci.org/madsjulia/RobustPmap.jl.svg?branch=master)](https://travis-ci.org/JuliaLang/RobustPmap.jl)
 
-[![Coverage Status](https://coveralls.io/repos/JuliaLang/RobustPmap.jl/badge.svg?branch=master)](https://coveralls.io/r/JuliaLang/RobustPmap.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/madsjulia/RobustPmap.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/RobustPmap.jl?branch=master)
 
 RobustPmap is a module of MADS. MADS (Model Analysis & Decision Support) is an open-source [Julia](http://julialang.org) code designed as an integrated high-performance computational framework performing a wide range of model-based analyses:
 
