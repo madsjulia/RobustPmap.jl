@@ -17,3 +17,4 @@ end
 testtypecheck()
 testworks()
 testparallel()
+rmprocs(workers())
