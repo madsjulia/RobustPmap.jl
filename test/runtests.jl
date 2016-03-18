@@ -1,7 +1,9 @@
 import RobustPmap
 using Base.Test
 
+procschage = false
 if nworkers() < 2
+	procschage = true
 	addprocs(2)
 end
 @everywhere f1(x) = x > 0 ? 1 : 1.
@@ -17,4 +19,6 @@ end
 testtypecheck()
 testworks()
 testparallel()
-rmprocs(workers())
+if procschage
+	rmprocs(workers())
+end
