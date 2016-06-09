@@ -32,6 +32,8 @@ LA-CC-15-080; Copyright Number Assigned: C16008
 
 module RobustPmap
 
+import JLD
+
 "Check for type exceptions"
 function checkexceptions(x, t)
 	for i = 1:length(x)
@@ -49,6 +51,25 @@ function rpmap(f, args...; t::Type=Any)
 	x = pmap(f, args...)
 	checkexceptions(x, t)
 	return convert(Array{t, 1}, x)
+end
+
+"Robust pmap call with checkpoints"
+function crpmap(f, checkpointfrequency, filerootname, args...; t::Type=Any)
+	fullresult = t[]
+	hashargs = hash(args)
+	for i = 1:ceil(Int, length(args[1]) / checkpointfrequency)
+		r = (1 + (i - 1) * checkpointfrequency):min(length(args[1]), (i * checkpointfrequency))
+		filename = string(filerootname, "_", hashargs, "_", i, ".jld")
+		theseargs = map(x->x[r], args)
+		if isfile(filename)
+			partialresult = JLD.load(filename, "partialresult")
+		else
+			partialresult = rpmap(f, map(x->x[r], args)...; t=t)
+			JLD.save(filename, "partialresult", partialresult)
+		end
+		append!(fullresult, partialresult)
+	end
+	return fullresult
 end
 
 end
