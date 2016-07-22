@@ -48,7 +48,7 @@ end
 
 "Robust pmap call"
 function rpmap(f, args...; t::Type=Any)
-	x = pmap(f, args...)
+	x = pmap(f, args...; err_stop=true)
 	checkexceptions(x, t)
 	return convert(Array{t, 1}, x)
 end
