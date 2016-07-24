@@ -37,6 +37,10 @@ testtypecheck()
 testworks()
 testparallel()
 testcheckpoint()
+function onlyonproc1(x)
+	return x
+end
+@test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
 if procschage
 	rmprocs(workers())
 end
