@@ -50,7 +50,11 @@ end
 
 "Robust pmap call"
 function rpmap(f, args...; t::Type=Any)
-	x = pmap(f, args...; err_stop=true)
+	if VERSION < v"0.5.0-dev"
+		x = pmap(f, args...; err_stop=true)
+	else
+		x = pmap(f, args...; on_error=x->x)
+	end
 	checkexceptions(x, t)
 	return convert(Array{t, 1}, x)
 end
