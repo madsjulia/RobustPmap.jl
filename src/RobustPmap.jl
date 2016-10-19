@@ -32,10 +32,12 @@ LA-CC-15-080; Copyright Number Assigned: C16008
 
 module RobustPmap
 
+import Compat.String
+
 import JLD
 
 "Check for type exceptions"
-function checkexceptions(x, t)
+function checkexceptions(x::Any, t::Type=Any)
 	for i = 1:length(x)
 		if isa(x[i], RemoteException)
 			throw(x[i])
@@ -49,7 +51,7 @@ function checkexceptions(x, t)
 end
 
 "Robust pmap call"
-function rpmap(f, args...; t::Type=Any)
+function rpmap(f::Function, args...; t::Type=Any)
 	if VERSION < v"0.5.0-dev"
 		x = pmap(f, args...; err_stop=true)
 	else
@@ -60,7 +62,7 @@ function rpmap(f, args...; t::Type=Any)
 end
 
 "Robust pmap call with checkpoints"
-function crpmap(f, checkpointfrequency, filerootname, args...; t::Type=Any)
+function crpmap(f::Function, checkpointfrequency::Number, filerootname::String, args...; t::Type=Any)
 	fullresult = t[]
 	hashargs = hash(args)
 	for i = 1:ceil(Int, length(args[1]) / checkpointfrequency)
