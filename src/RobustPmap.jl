@@ -37,9 +37,7 @@ import JLD
 "Check for type exceptions"
 function checkexceptions(x, t)
 	for i = 1:length(x)
-		if isa(x[i], RemoteException)
-			throw(x[i])
-		elseif isa(x[i], ProcessExitedException)
+		if isa(x[i], Exception)
 			throw(x[i])
 		elseif !isa(x[i], t) # typeof(x[i]) != t
 			throw(TypeError(:rpmap, "", t, x[i]))
