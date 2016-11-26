@@ -60,9 +60,12 @@ function rpmap(f::Function, args...; t::Type=Any)
 end
 
 "Robust pmap call with checkpoints"
-function crpmap(f::Function, checkpointfrequency::Number, filerootname::String, args...; t::Type=Any)
+function crpmap(f::Function, checkpointfrequency::Int, filerootname::String, args...; t::Type=Any)
 	fullresult = t[]
 	hashargs = hash(args)
+	if checkpointfrequency <= 0
+		checkpointfrequency = length(args[1])
+	end
 	for i = 1:ceil(Int, length(args[1]) / checkpointfrequency)
 		r = (1 + (i - 1) * checkpointfrequency):min(length(args[1]), (i * checkpointfrequency))
 		filename = string(filerootname, "_", hashargs, "_", i, ".jld")
