@@ -40,9 +40,9 @@ import JLD
 function checkexceptions(x::Any, t::Type=Any)
 	for i = 1:length(x)
 		if isa(x[i], Exception)
-			throw(x[i])
+			throw(TypeError(:RobustPmap, "checkexceptions for parameter $i", t, x[i]))
 		elseif !isa(x[i], t) # typeof(x[i]) != t
-			throw(TypeError(:rpmap, "", t, x[i]))
+			throw(TypeError(:RobustPmap, "checkexceptions for parameter $i", t, x[i]))
 		end
 	end
 	return nothing
