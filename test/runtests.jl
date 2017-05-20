@@ -1,8 +1,13 @@
-import RobustPmap
-import Base.Test
+procschage = false
+if nworkers() < 2
+	procschage = true
+	addprocs(2)
+	import RobustPmap
+	import Base.Test
+end
 
 if !isdefined(Symbol("@stderrcapture"))
-	macro stderrcapture(block)
+	@everywhere macro stderrcapture(block)
 		quote
 			if ccall(:jl_generating_output, Cint, ()) == 0
 				errororiginal = STDERR;
@@ -18,11 +23,6 @@ if !isdefined(Symbol("@stderrcapture"))
 	end
 end
 
-procschage = false
-if nworkers() < 2
-	procschage = true
-	addprocs(2)
-end
 @stderrcapture @everywhere f1(x) = x > 0 ? 1 : 1.
 @stderrcapture function testtypecheck()
 	@Base.Test.test_throws TypeError RobustPmap.rpmap(f1, [-1, 0, 1]; t=Int)
@@ -59,8 +59,13 @@ end
 	testworks()
 	testparallel()
 	testcheckpoint()
-	@Base.Test.test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
+	if VERSION > v"0.6-"
+		@Base.Test.test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
+	else
+		@Base.Test.test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
+	end
 end
+
 if procschage
 	rmprocs(workers())
 end
