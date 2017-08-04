@@ -2,7 +2,7 @@ procschage = false
 if nworkers() < 2
 	procschage = true
 	addprocs(2)
-	import RobustPmap
+	reload("RobustPmap")
 	import Base.Test
 end
 
