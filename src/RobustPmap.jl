@@ -42,7 +42,7 @@ function checkexceptions(x::Any, t::Type=Any)
 		if isa(x[i], Exception)
 			warn("RobustPmap Exception!")
 			warn("RobustPmap dir: $(pwd())")
-			throw(TypeError(:RobustPmap, "checkexceptions for parameter $i", t, x[i]))
+			throw(x[i])
 		elseif !isa(x[i], t) # typeof(x[i]) != t
 			throw(TypeError(:RobustPmap, "checkexceptions for parameter $i", t, x[i]))
 		end
