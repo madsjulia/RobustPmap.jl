@@ -40,10 +40,8 @@ import JLD
 function checkexceptions(x::Any, t::Type=Any)
 	for i = 1:length(x)
 		if isa(x[i], Exception)
-			Base.showerror(Base.STDERR, x[i])
 			throw(x[i])
 		elseif !isa(x[i], t) # typeof(x[i]) != t
-			Base.showerror(Base.STDERR, x[i])
 			throw(TypeError(:RobustPmap, "checkexceptions for parameter $i", t, x[i]))
 		end
 	end
