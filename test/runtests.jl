@@ -59,11 +59,7 @@ end
 	testworks()
 	testparallel()
 	testcheckpoint()
-	if VERSION > v"0.6-"
-		@Base.Test.test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
-	else
-		@Base.Test.test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
-	end
+	@Base.Test.test_throws RemoteException RobustPmap.rpmap(onlyonproc1, 1:10)
 end
 
 if procschage
