@@ -1,3 +1,4 @@
-julia 0.6
-JLD
+julia 0.7
+JLD2
+FileIO
 Compat 0.7.15
