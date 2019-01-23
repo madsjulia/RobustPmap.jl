@@ -25,7 +25,7 @@ if !isdefined(Base, Symbol("@stderrcapture"))
 	end
 end
 
-@stderrcapture @Distributed.everywhere f1(x) = x > 0 ? 1 : 1.
+@stderrcapture @everywhere f1(x) = x > 0 ? 1 : 1.
 @stderrcapture function testtypecheck()
 	@Test.test_throws TypeError RobustPmap.rpmap(f1, [-1, 0, 1]; t=Int)
 end
