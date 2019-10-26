@@ -32,7 +32,6 @@ LA-CC-15-080; Copyright Number Assigned: C16008
 module RobustPmap
 
 import Distributed
-import Compat.String
 
 import JLD2
 import FileIO
@@ -57,7 +56,7 @@ function rpmap(f::Function, args...; t::Type=Any)
 end
 
 "Robust pmap call with checkpoints"
-function crpmap(f::Function, checkpointfrequency::Int, filerootname::String, args...; t::Type=Any)
+function crpmap(f::Function, checkpointfrequency::Int, filerootname::AbstractString, args...; t::Type=Any)
 	fullresult = t[]
 	hashargs = hash(args)
 	if checkpointfrequency <= 0
