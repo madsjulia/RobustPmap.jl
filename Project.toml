@@ -1,6 +1,6 @@
 name = "RobustPmap"
 uuid = "27aeedcb-f738-516b-a0b8-3211cf1146e5"
-version = "0.6.0"
+version = "1.0.0"
 
 [deps]
 Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
@@ -8,9 +8,9 @@ FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
 
 [compat]
-FileIO = "^1"
-JLD2 = "^0"
-julia = "^1"
+FileIO = "1"
+JLD2 = "0.2, 0.3"
+julia = "1.5"
 
 [extras]
 Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
