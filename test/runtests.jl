@@ -1,4 +1,4 @@
-using Distributed
+import Distributed
 
 procschage = false
 if Distributed.nworkers() < 2
@@ -8,34 +8,17 @@ if Distributed.nworkers() < 2
 	import Test
 end
 
-if !isdefined(Base, Symbol("@stderrcapture"))
-	@Distributed.everywhere macro stderrcapture(block)
-		quote
-			if ccall(:jl_generating_output, Cint, ()) == 0
-				errororiginal = stderr;
-				(errR, errW) = redirect_stderr();
-				errorreader = @async read(errR, String);
-				evalvalue = $(esc(block))
-				redirect_stderr(errororiginal);
-				close(errW);
-				close(errR);
-				return evalvalue
-			end
-		end
-	end
-end
-
-@stderrcapture @everywhere rpmfn(x) = x > 0 ? 1 : 1.
-@stderrcapture function testtypecheck()
+@Distributed.everywhere rpmfn(x) = x > 0 ? 1 : 1.
+function testtypecheck()
 	@Test.test_throws TypeError RobustPmap.rpmap(rpmfn, [-1, 0, 1]; t=Int)
 end
-@stderrcapture function testworks()
+function testworks()
 	@Test.test RobustPmap.rpmap(rpmfn, [-1, 0, 1]) == Any[1., 1., 1]
 end
-@stderrcapture function testparallel()
+function testparallel()
 	@Test.test length(unique(RobustPmap.rpmap(i->Distributed.myid(), 1:2))) != 1
 end
-@stderrcapture function testcheckpoint()
+function testcheckpoint()
 	result = RobustPmap.crpmap(x->x, 2, joinpath(pwd(), "test"), [-1, 0, 1]; t=Int)
 	result2 = RobustPmap.crpmap(x->pi, 2, joinpath(pwd(), "test"), [-1, 0, 1]; t=Int)#test it with a different function to make sure it loads from the checkpoints
 	rm(joinpath(pwd(), string("test", "_", hash(([-1, 0, 1],)), "_1.jld2")))
@@ -52,7 +35,7 @@ end
 	@Test.test result == RobustPmap.rpmap((x, y)->x + y, x, y; t=Float64)
 	@Test.test result == result2
 end
-@stderrcapture function onlyonproc1(x)
+function onlyonproc1(x)
 	return x
 end
 
