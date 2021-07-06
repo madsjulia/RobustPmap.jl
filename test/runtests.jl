@@ -25,12 +25,12 @@ if !isdefined(Base, Symbol("@stderrcapture"))
 	end
 end
 
-@stderrcapture @everywhere f1(x) = x > 0 ? 1 : 1.
+@stderrcapture @everywhere rpmfn(x) = x > 0 ? 1 : 1.
 @stderrcapture function testtypecheck()
-	@Test.test_throws TypeError RobustPmap.rpmap(f1, [-1, 0, 1]; t=Int)
+	@Test.test_throws TypeError RobustPmap.rpmap(rpmfn, [-1, 0, 1]; t=Int)
 end
 @stderrcapture function testworks()
-	@Test.test RobustPmap.rpmap(f1, [-1, 0, 1]) == Any[1., 1., 1]
+	@Test.test RobustPmap.rpmap(rpmfn, [-1, 0, 1]) == Any[1., 1., 1]
 end
 @stderrcapture function testparallel()
 	@Test.test length(unique(RobustPmap.rpmap(i->Distributed.myid(), 1:2))) != 1
