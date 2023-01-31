@@ -52,7 +52,7 @@ end
 function rpmap(f::Function, args...; t::Type=Any)
 	x = Distributed.pmap(f, args...; on_error=x->x)
 	checkexceptions(x, t)
-	return convert(Array{t, 1}, x)
+	return convert(Vector{t}, x)
 end
 
 "Robust pmap call with checkpoints"
