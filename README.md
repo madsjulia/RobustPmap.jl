@@ -1,7 +1,6 @@
 RobustPmap
 ==========
 
-[![Build Status](https://travis-ci.org/madsjulia/RobustPmap.jl.svg?branch=master)](https://travis-ci.org/madsjulia/RobustPmap.jl)
 [![Coverage Status](https://coveralls.io/repos/madsjulia/RobustPmap.jl/badge.svg?branch=master)](https://coveralls.io/r/madsjulia/RobustPmap.jl?branch=master)
 
 Robust paralleization using pmap calls with checks for the type of returned values.
@@ -112,10 +111,20 @@ Developers
 
 * [Velimir (monty) Vesselinov](http://www.lanl.gov/orgs/ees/staff/monty) [(publications)](http://scholar.google.com/citations?user=sIFHVvwAAAAJ)
 * [Daniel O'Malley](http://www.lanl.gov/expertise/profiles/view/daniel-o'malley) [(publications)](http://scholar.google.com/citations?user=rPzCVjEAAAAJ)
-* [see also](https://github.com/madsjulia/RobustPmap.jl/graphs/contributors)
 
-Publications, Presentations, Projects
-=====================================
+Projects:
+---------
 
-* [mads.lanl.gov/](http://mads.lanl.gov/)
-* [ees.lanl.gov/monty](http://ees.lanl.gov/monty)
+* [MADS](https://github.com/madsjulia)
+* [SmartTensors](https://github.com/SmartTensors)
+* [SmartML](https://github.com/SmartTensors/SmartML.jl)
+
+Publications, Presentations
+--------------------------
+
+* [mads.gitlab.io](http://mads.gitlab.io)
+* [madsjulia.github.io](https://madsjulia.github.io)
+* [SmartTensors](https://SmartTensors.github.io)
+* [SmartTensors.com](https://SmartTensors.com)
+* [monty.gitlab.io](http://monty.gitlab.io)
+* [montyv.github.io](https://montyv.github.io)
