@@ -36,13 +36,17 @@ import Distributed
 import JLD2
 import FileIO
 
-"Check for type exceptions"
-function checkexceptions(x::Any, t::Type=Any)
+"Check for exceptions"
+function checkexceptions(x::Any, t::Type=Any, args...)
 	for i in eachindex(x)
 		if isa(x[i], Exception)
-			throw(x[i])
-		elseif !isa(x[i], t) # typeof(x[i]) != t
-			throw(TypeError(:RobustPmap, "checkexceptions for parameter $i", t, x[i]))
+			@error("Execution failed for one of the runs (run #$(i)) with exception error $(typeof(x[i]))!")
+			@error("Failing input parameter set: $(args[1][i])")
+			throw(TypeError(:RobustPmap, t, x[i]))
+		elseif !isa(x[i], t)
+			@error("Execution failed for one of the runs (run #$(i))")
+			@error("Failing input parameter set: $(args[1][i])")
+			throw(TypeError(:RobustPmap, t, x[i]))
 		end
 	end
 	return nothing
@@ -51,7 +55,7 @@ end
 "Robust pmap call"
 function rpmap(f::Function, args...; t::Type=Any)
 	x = Distributed.pmap(f, args...; on_error=x->x)
-	checkexceptions(x, t)
+	checkexceptions(x, t, args...)
 	return convert(Vector{t}, x)
 end
 
