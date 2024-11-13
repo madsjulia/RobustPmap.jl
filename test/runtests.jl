@@ -9,6 +9,7 @@ if Distributed.nworkers() < 2
 end
 
 @Distributed.everywhere rpmfn(x) = x > 0 ? 1 : 1.
+
 function testtypecheck()
 	@Test.test_throws TypeError RobustPmap.rpmap(rpmfn, [-1, 0, 1]; t=Int)
 end
